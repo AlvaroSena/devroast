@@ -8,7 +8,8 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { CodeBlock } from '@/components/ui/code-block';
-import { DiffLine } from '@/components/ui/diff-line';
+import { CodeInput } from '@/components/ui/code-input';
+import { DiffLine, DiffLinePrefix } from '@/components/ui/diff-line';
 import { ToggleDemo } from './toggle-demo';
 
 const sectionStyles = 'space-y-4 p-8 border border-border-primary rounded-lg';
@@ -148,6 +149,36 @@ export default function ComponentsDemo() {
             <DiffLine type="context">
               for (let i = 0; i &lt; items.length; i++) {'{'}
             </DiffLine>
+          </div>
+        </section>
+
+        <section className={sectionStyles}>
+          <h2 className="font-mono text-xl font-semibold">DiffLinePrefix</h2>
+
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-2">
+              <DiffLinePrefix type="removed" />
+              <span className="font-mono text-xs">removed (-)</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <DiffLinePrefix type="added" />
+              <span className="font-mono text-xs">added (+)</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <DiffLinePrefix type="context" />
+              <span className="font-mono text-xs">context (space)</span>
+            </div>
+          </div>
+        </section>
+
+        <section className={sectionStyles}>
+          <h2 className="font-mono text-xl font-semibold">CodeInput</h2>
+
+          <div className="flex flex-col gap-4">
+            <p className="font-mono text-xs text-text-secondary">
+              Default (with default code)
+            </p>
+            <CodeInput />
           </div>
         </section>
       </div>

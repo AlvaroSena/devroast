@@ -21,26 +21,13 @@ export interface DiffLineProps
 
 export const DiffLine = forwardRef<HTMLDivElement, DiffLineProps>(
   ({ className, type, children, ...props }, ref) => {
-    const prefix = tv({
-      base: 'w-4 shrink-0 text-center',
-      variants: {
-        type: {
-          removed: 'text-accent-red',
-          added: 'text-accent-green',
-          context: 'text-text-tertiary',
-        },
-      },
-    })({ type });
-
     return (
       <div
         ref={ref}
         className={diffLineVariants({ type, className })}
         {...props}
       >
-        <span className={prefix}>
-          {type === 'removed' ? '-' : type === 'added' ? '+' : ' '}
-        </span>
+        <DiffLinePrefix type={type} />
         <span className="flex-1 px-4">{children}</span>
       </div>
     );
@@ -48,3 +35,28 @@ export const DiffLine = forwardRef<HTMLDivElement, DiffLineProps>(
 );
 
 DiffLine.displayName = 'DiffLine';
+
+export interface DiffLinePrefixProps {
+  type?: 'removed' | 'added' | 'context';
+  className?: string;
+}
+
+const prefixVariants = tv({
+  base: 'w-4 shrink-0 text-center',
+  variants: {
+    type: {
+      removed: 'text-accent-red',
+      added: 'text-accent-green',
+      context: 'text-text-tertiary',
+    },
+  },
+  defaultVariants: {
+    type: 'context',
+  },
+});
+
+export function DiffLinePrefix({ type, className }: DiffLinePrefixProps) {
+  const symbol = type === 'removed' ? '-' : type === 'added' ? '+' : ' ';
+
+  return <span className={prefixVariants({ type, className })}>{symbol}</span>;
+}
